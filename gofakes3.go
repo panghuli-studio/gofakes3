@@ -152,7 +152,7 @@ func (g *GoFakeS3) authMiddleware(handler http.Handler) http.Handler {
 			result := signature.V4SignVerifyWithLookup(rq, g.lookupAuthKey)
 
 			if result == signature.ErrUnsupportAlgorithm {
-				result = signature.V2SignVerify(rq)
+				result = signature.V2SignVerifyWithLookup(rq, g.lookupAuthKey)
 			}
 
 			if result != signature.ErrNone {
