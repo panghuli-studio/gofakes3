@@ -171,6 +171,9 @@ func (er ErrorResult) String() string {
 }
 
 type InitiateMultipartUpload struct {
+	// S3 names the root InitiateMultipartUploadResult; strict clients (the AWS CRT
+	// transfer client behind "aws s3 cp") find no UploadId under any other name.
+	XMLName  xml.Name `xml:"InitiateMultipartUploadResult"`
 	Bucket   string   `xml:"Bucket"`
 	Key      string   `xml:"Key"`
 	UploadID UploadID `xml:"UploadId"`
