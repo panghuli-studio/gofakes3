@@ -1,0 +1,24 @@
+# Tests for panghuli-studio/gofakes3. Upstream's build.yml only runs in
+# OpenListTeam/gofakes3, so PRs to our dev branch need their own job.
+name: panghuli ci
+
+on:
+  pull_request:
+    branches: [dev]
+  push:
+    branches: [dev]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - run: go vet ./...
+      - run: go test -race ./...
